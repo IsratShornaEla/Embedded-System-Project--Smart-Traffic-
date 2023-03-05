@@ -1,0 +1,95 @@
+
+//left ultrasonic sensor
+const int trigPin1 =10;
+const int echoPin1= 11;
+
+//right ultrasonic sensor
+const int trigPin2 =6;
+const int echoPin2= 7;
+
+//Led lights
+const int led1 =5;  //Left's green led , right's red led 
+const int led2 =3;  //yellow led
+const int led3 =8;  //right's green led , left's red led 
+ 
+//long duration1; // variable for the duration of sound wave travel
+//int distance; // variable for the distance measurement
+ 
+
+void setup() {
+  
+  //left ultrasonic sensor
+  pinMode(trigPin1,OUTPUT);
+  pinMode(echoPin1,INPUT);
+  
+  //right ultrasonic sensor
+  pinMode(trigPin2,OUTPUT);
+  pinMode(echoPin2,INPUT);
+  
+  //right ultrasonic sensor
+  pinMode(led1,OUTPUT);
+  pinMode(led2,OUTPUT);
+  pinMode(led3,OUTPUT);
+
+  Serial.begin(9600);
+  
+  Serial.println("Ultrasonic Sensor Test");
+  Serial.println("with Arduino UNO R3");
+  
+}
+ 
+
+void loop() {
+ 
+    long duration1,distance1,duration2,distance2;
+
+
+    digitalWrite(led2,HIGH);
+    delay(3000);
+    digitalWrite(led2,LOW);
+
+    digitalWrite(led3,HIGH);
+    delay(3000);
+    digitalWrite(led3,LOW);
+
+  //clear tigPin
+    digitalWrite(trigPin1, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPin1, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin1, LOW);
+
+  
+    duration1 = pulseIn(echoPin1, HIGH);
+    distance1 = duration1*0.034/2.0;
+    Serial.print("Distance1: ");
+    Serial.print(distance1);
+    Serial.println(" cm");
+
+  
+    if (distance1 < 5)
+    { 
+      
+        digitalWrite(led1,HIGH);
+        delay(10000);
+        digitalWrite(led1,LOW);
+
+        digitalWrite(led3,HIGH);
+        delay(10000);
+        digitalWrite(led3,LOW);
+
+    }
+    else {
+      
+        digitalWrite(led1,HIGH);
+        delay(3000);
+        digitalWrite(led1,LOW);
+
+        digitalWrite(led3,HIGH);
+        delay(3000);
+        digitalWrite(led3,LOW);
+      
+    }
+
+ 
+}
